@@ -1,4 +1,5 @@
 import random
+import json
 
 # This program assigns a territory to a user(s) given a number of territories
 
@@ -6,7 +7,7 @@ import random
 territories = list(range(1, 23)) # Territories 1 through 22
 
 # example list of dictionaries holding names of brothers and their current as well as previous held territory
-brothers = [
+initial_brothers = [
     {'name': 'brotherA',
      'current_territory': None,
      'previous_territory': None,
