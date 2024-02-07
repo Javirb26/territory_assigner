@@ -65,9 +65,7 @@ def assigner(brothers, territories):
         
         print(f'{brother["name"]} has been assigned territory #{brother["current_territory"]} he previously had #{brother["previous_territory"]}')
 
-print(assigner(initial_brothers, territories))
+print(assigner(brothers, territories))
 
 # Save the updated data
 save_state(brothers)
-
-print(brothers)
