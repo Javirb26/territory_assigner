@@ -34,6 +34,12 @@ initial_brothers = [
      },
 ]
 
+loaded_brothers = load_state()
+if loaded_brothers is not None:
+    brothers = loaded_brothers
+else:
+    brothers = initial_brothers
+
 # assignment function
 def assigner(brothers, territories):
     # Copy the list to maintain the original list 
@@ -59,10 +65,7 @@ def assigner(brothers, territories):
         
         print(f'Brother {brother["name"]} has been assigened territory #{brother["current_territory"]}')
 
-        # Reset the available territories if all have been assigned
-        if not available_territories:
-            available_territories = territories.copy()
+assigner(initial_brothers, territories)
 
-assigner(brothers, territories)
-
-# print(brothers)
+# Save the updated data
+save_state(brothers)
