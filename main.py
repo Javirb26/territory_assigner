@@ -51,7 +51,7 @@ def assigner(brothers, territories):
 
         # if no Terr are left that aren't the brothers previous, use the available ones
         if not filtered_territories:
-            filtered_territories = available_territories
+            filtered_territories = territories.copy() # Resets if all territories have been used
 
         # Randomly select a new Terr from the filtered list
         new_territory = random.choice(filtered_territories)
@@ -63,9 +63,11 @@ def assigner(brothers, territories):
         # Remove the newly assign territory from the pool of available territories
         available_territories.remove(new_territory)
         
-        print(f'Brother {brother["name"]} has been assigened territory #{brother["current_territory"]}')
+        print(f'{brother["name"]} has been assigned territory #{brother["current_territory"]} he previously had #{brother["previous_territory"]}')
 
-assigner(initial_brothers, territories)
+print(assigner(initial_brothers, territories))
 
 # Save the updated data
 save_state(brothers)
+
+print(brothers)
