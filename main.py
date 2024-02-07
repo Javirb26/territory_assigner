@@ -3,6 +3,18 @@ import json
 
 # This program assigns a territory to a user(s) given a number of territories
 
+# Functions for saving and loading data
+def save_state(data, filename='state.json'):
+    with open(filename, 'w') as file:
+        json.dump(data, file, indent=4)
+
+def load_state(filename='state.json'):
+    try:
+        with open(filename, 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return None
+
 # Territory list
 territories = list(range(1, 23)) # Territories 1 through 22
 
