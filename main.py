@@ -1,12 +1,25 @@
 import random
+import json
 
 # This program assigns a territory to a user(s) given a number of territories
+
+# Functions for saving and loading data
+def save_state(data, filename='state.json'):
+    with open(filename, 'w') as file:
+        json.dump(data, file, indent=4)
+
+def load_state(filename='state.json'):
+    try:
+        with open(filename, 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return None
 
 # Territory list
 territories = list(range(1, 23)) # Territories 1 through 22
 
 # example list of dictionaries holding names of brothers and their current as well as previous held territory
-brothers = [
+initial_brothers = [
     {'name': 'brotherA',
      'current_territory': None,
      'previous_territory': None,
@@ -21,6 +34,12 @@ brothers = [
      },
 ]
 
+loaded_brothers = load_state()
+if loaded_brothers is not None:
+    brothers = loaded_brothers
+else:
+    brothers = initial_brothers
+
 # assignment function
 def assigner(brothers, territories):
     # Copy the list to maintain the original list 
@@ -28,11 +47,11 @@ def assigner(brothers, territories):
 
     for brother in brothers:
         # filters out the brother's previous territory if possible
-        filtered_territories = [t for t in territories if t != brother['previous_territory']]
+        filtered_territories = [t for t in available_territories if t != brother['previous_territory']]
 
         # if no Terr are left that aren't the brothers previous, use the available ones
         if not filtered_territories:
-            filtered_territories = available_territories
+            filtered_territories = territories.copy() # Resets if all territories have been used
 
         # Randomly select a new Terr from the filtered list
         new_territory = random.choice(filtered_territories)
@@ -44,12 +63,9 @@ def assigner(brothers, territories):
         # Remove the newly assign territory from the pool of available territories
         available_territories.remove(new_territory)
         
-        print(f'Brother {brother["name"]} has been assigened territory #{brother["current_territory"]}')
+        print(f'{brother["name"]} has been assigned territory #{brother["current_territory"]} he previously had #{brother["previous_territory"]}')
 
-        # Reset the available territories if all have been assigned
-        if not available_territories:
-            available_territories = territories.copy()
+print(assigner(brothers, territories))
 
-assigner(brothers, territories)
-
-# print(brothers)
+# Save the updated data
+save_state(brothers)
