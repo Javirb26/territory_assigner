@@ -47,7 +47,7 @@ def assigner(brothers, territories):
 
     for brother in brothers:
         # filters out the brother's previous territory if possible
-        filtered_territories = [t for t in territories if t != brother['previous_territory']]
+        filtered_territories = [t for t in available_territories if t != brother['previous_territory']]
 
         # if no Terr are left that aren't the brothers previous, use the available ones
         if not filtered_territories:
