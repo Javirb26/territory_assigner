@@ -22,3 +22,7 @@ brothers = [
      'previous_territory': None,
      },
 ]
+
+for brother in brothers:
+    brother['current_territory'] = random.choice(territories)
+    print(f'Brother {brother["name"]} has been assigened territory #{brother["current_territory"]}')
